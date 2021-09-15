@@ -1,0 +1,10 @@
+#Files
+.DS_Store
+.env
+__init__.py
+
+
+#Folders
+**/__pycache__/**
+data
+requirements_tree.txt
