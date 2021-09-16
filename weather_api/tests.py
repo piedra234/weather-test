@@ -1,5 +1,5 @@
 from django.test import TestCase
-from weather_api.models.city import City
+from weather_api.services.city import City
 
 # Create your tests here.
 class CityClass(TestCase):

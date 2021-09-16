@@ -55,11 +55,18 @@ pip install django-cors-headers     # CORS project configuration
 ################################################################################
 # Install to use custom parser and renderer                                    #
 ################################################################################
+
 pip install djangorestframework-yaml    # See: https://github.com/jpadilla/django-rest-framework-yaml/  
 pip install djangorestframework-xml     # See: https://github.com/jpadilla/django-rest-framework-xml/  
 pip install drf-renderer-xlsx           # Custom XLSX
 pip install djangorestframework-csv     # Custom CSV
 
+
+################################################################################
+# Install to use custom logging                                                #
+################################################################################
+
+pip install django-request-logging
 
 ################################################################################
 # Install to connect databases                                                 #
