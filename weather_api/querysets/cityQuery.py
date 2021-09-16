@@ -8,21 +8,23 @@ class CityQuery():
     def get_city(self, location, country_name):
         url = self.url
         city_json = (requests.get(url.format(city = location, country = country_name))).json()
-        data = City(city_json['coord'],
-                    city_json['weather'],
-                    city_json['base'],
-                    city_json['main'],
-                    city_json['visibility'],
-                    city_json['wind'],
-                    city_json['clouds'],
-                    city_json['dt'],
-                    city_json['sys'],
-                    city_json['timezone'],
-                    city_json['id'],
-                    city_json['name'],
-                    city_json['cod'])  
-        return data
-
+        if 'name' in city_json.keys():
+            data = City(city_json['coord'],
+                        city_json['weather'],
+                        city_json['base'],
+                        city_json['main'],
+                        city_json['visibility'],
+                        city_json['wind'],
+                        city_json['clouds'],
+                        city_json['dt'],
+                        city_json['sys'],
+                        city_json['timezone'],
+                        city_json['id'],
+                        city_json['name'],
+                        city_json['cod'])  
+            return data
+        else:
+            return None
 
 
 
