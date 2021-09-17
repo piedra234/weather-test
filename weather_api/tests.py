@@ -1,11 +1,10 @@
 from django.test import TestCase
 from weather_api.services.city import City
-from weather_api.models.city import CityModel
+from weather_api.models.cityModel import CityModel
 
 
 # Create your tests here.
 class CityClass(TestCase):
-
     @classmethod
     def setUpTestData(cls):
         print("setUpTestData: Run once to set up non-modified data for all class methods.")
@@ -86,4 +85,3 @@ class CityClass(TestCase):
         self.assertEqual(self.cali.weather, obj_cityModel.weather)
         obj_cityModel = CityModel.objects.filter(name = 'Santiago de Cali', sys__country='CO').order_by('-created_at').first()
         self.assertNotEqual(self.bogota.weather, obj_cityModel.weather)
-

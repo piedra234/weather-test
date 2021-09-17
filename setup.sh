@@ -84,10 +84,16 @@ pip install psycopg2
 #pip install --user numpy scipy matplotlib ipython jupyter pandas sympy nose
 
 ################################################################################
-# Install to use the AWS SDK for Python (Boto3)                                 #
+# Install to use the AWS SDK for Python (Boto3)                                #
 ################################################################################
 
 #pip install boto3
+
+################################################################################
+# Install to use jobs inside project                                           #
+################################################################################
+
+pip install django-apscheduler
 
 ################################################################################
 # Install to visualize the dependencies of the project                         #
