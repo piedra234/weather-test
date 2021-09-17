@@ -1,11 +1,10 @@
 #Files
 .DS_Store
 .env
-__init__.py
 
 
 #Folders
 **/__pycache__/**
 data
 requirements_tree.txt
-weather_api/migrations/0001_initial.py
+weather_api/migrations
