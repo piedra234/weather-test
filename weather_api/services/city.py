@@ -102,3 +102,5 @@ class City():
         local_rtime = (datetime.fromtimestamp(requested_time)) - col_tz
         return local_rtime.strftime('%Y-%m-%d %H:%M:%S')
 
+    def __str__(self):
+        return self.name
