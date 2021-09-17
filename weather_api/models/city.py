@@ -15,7 +15,7 @@ class CityModel(models.Model):
     id_city = models.IntegerField(db_column='id_city')
     name = models.CharField(db_column='name', max_length=200)
     cod = models.IntegerField(db_column='cod')
-    updated_at = models.DateTimeField(db_column='updated_at',auto_now=True)
+    created_at = models.DateTimeField(db_column='created_at',auto_now_add=True)
 
     class Meta:
         managed = True

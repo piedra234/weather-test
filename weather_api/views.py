@@ -20,9 +20,10 @@ class CityAPI (APIView):
         if ('city' in request.GET) and ('country' in request.GET):
             city= request.GET['city']
             country=request.GET['country'][:2]
-            city_data = CityQuery()
-            obj_city = city_data.get_city(city.capitalize(), country.upper())
+            city_query = CityQuery()
+            obj_city = city_query.get_city(city.lower(), country.upper())
             if obj_city is not None:
+                city_query.save_city(obj_city)
                 city_serializer = CitySerializer()
                 obj_city_serializer = city_serializer.serialize(obj_city)
                 return Response(obj_city_serializer)

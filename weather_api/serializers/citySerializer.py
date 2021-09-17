@@ -22,18 +22,18 @@ class CityFullSerializer():
    
     def serialize(self, city):
         city_serialized = {
-                'coord' : f"{city.coord}",
-                'weather' : f"{city.weather}",
-                'base' : f"{city.base}",
-                'main' : f"{city.main}",
-                'visibility' : f"{city.visibility}",
-                'wind' : f"{city.wind}",
-                'clouds' : f"{city.clouds}",
-                'dt' : f"{city.dt}",
-                'sys' : f"{city.sys}",
-                'timezone' : f"{city.timezone}",
-                'id_city' : f"{city.id}", #Change
-                'name' : f"{city.name}",
-                'cod' : f"{city.cod}",
+                'coord' : city.coord,
+                'weather' : city.weather,
+                'base' : city.base,
+                'main' : city.main,
+                'visibility' : city.visibility,
+                'wind' : city.wind,
+                'clouds' : city.clouds,
+                'dt' : city.dt,
+                'sys' : city.sys,
+                'timezone' : city.timezone,
+                'id_city' : city.id,
+                'name' : city.name,
+                'cod' : city.cod,
         }
         return city_serialized

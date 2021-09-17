@@ -1,5 +1,7 @@
 from django.test import TestCase
 from weather_api.services.city import City
+from weather_api.models.city import CityModel
+
 
 # Create your tests here.
 class CityClass(TestCase):
@@ -7,7 +9,7 @@ class CityClass(TestCase):
     @classmethod
     def setUpTestData(cls):
         print("setUpTestData: Run once to set up non-modified data for all class methods.")
-        bog_res = {"coord":{"lon":-74.0817,"lat":4.6097},"weather":[{"id":804,"main":"Clouds","description":"overcast clouds","icon":"04n"}],"base":"stations","main":{"temp":284.24,"feels_like":283.83,"temp_min":284.24,"temp_max":284.24,"pressure":1020,"humidity":93,"sea_level":1020,"grnd_level":754},"visibility":6797,"wind":{"speed":1.51,"deg":119,"gust":2.19},"clouds":{"all":100},"dt":1631752526,"sys":{"country":"CO","sunrise":1631702838,"sunset":1631746549},"timezone":-18000,"id":3688689,"name":"Bogota","cod":200}
+        bog_res = {"coord":{"lon":-74.0817,"lat":4.6097},"weather":[{"id":804,"main":"Clouds","description":"overcast clouds","icon":"04n"}],"base":"stations","main":{"temp":284.24,"feels_like":283.83,"temp_min":284.24,"temp_max":284.24,"pressure":1020,"humidity":93,"sea_level":1020,"grnd_level":754},"visibility":6797,"wind":{"speed":1.51,"deg":119,"gust":2.19},"clouds":{"all":100},"dt":1631752526,"sys":{"country":"CO","sunrise":1631702838,"sunset":1631746549},"timezone":-18000,"id_city":3688689,"name":"Bogota","cod":200}
         cls.bogota = City(bog_res['coord'],
                         bog_res['weather'],
                         bog_res['base'],
@@ -18,10 +20,10 @@ class CityClass(TestCase):
                         bog_res['dt'],
                         bog_res['sys'],
                         bog_res['timezone'],
-                        bog_res['id'],
+                        bog_res['id_city'],
                         bog_res['name'],
                         bog_res['cod'])
-        cal_res = {"coord":{"lon":-76.5225,"lat":3.4372},"weather":[{"id":802,"main":"Clouds","description":"scattered clouds","icon":"03n"}],"base":"stations","main":{"temp":297.15,"feels_like":297.51,"temp_min":297.15,"temp_max":297.15,"pressure":1014,"humidity":73},"visibility":10000,"wind":{"speed":2.57,"deg":0},"clouds":{"all":40},"dt":1631752638,"sys":{"type":1,"id":8590,"country":"CO","sunrise":1631703438,"sunset":1631747121},"timezone":-18000,"id":3687925,"name":"Santiago de Cali","cod":200}
+        cal_res = {"coord":{"lon":-76.5225,"lat":3.4372},"weather":[{"id":802,"main":"Clouds","description":"scattered clouds","icon":"03n"}],"base":"stations","main":{"temp":297.15,"feels_like":297.51,"temp_min":297.15,"temp_max":297.15,"pressure":1014,"humidity":73},"visibility":10000,"wind":{"speed":2.57,"deg":0},"clouds":{"all":40},"dt":1631752638,"sys":{"type":1,"id":8590,"country":"CO","sunrise":1631703438,"sunset":1631747121},"timezone":-18000,"id_city":3687925,"name":"Santiago de Cali","cod":200}
         cls.cali = City(cal_res['coord'],
                     cal_res['weather'],
                     cal_res['base'],
@@ -32,9 +34,12 @@ class CityClass(TestCase):
                     cal_res['dt'],
                     cal_res['sys'],
                     cal_res['timezone'],
-                    cal_res['id'],
+                    cal_res['id_city'],
                     cal_res['name'],
                     cal_res['cod'])
+        obj_bogota = CityModel.objects.create(**bog_res)
+        obj_cali = CityModel.objects.create(**cal_res)
+
         
 
     def setUp(self):
@@ -70,5 +75,15 @@ class CityClass(TestCase):
     def test_city_beaufort(self):
         """Beaufort scale"""
         self.assertEqual(self.bogota.wind_beaufort, 'Light air')
+        self.assertEqual(self.london.wind_beaufort, 'Light air')
         self.assertNotEqual(self.cali.wind_beaufort, 'Light air')
-        self.assertEqual(self.cali.wind_beaufort, 'west')
+
+    def test_cityModel(self):
+        """Cities in database"""
+        obj_cityModel = CityModel.objects.filter(name = 'Bogota', sys__country='CO').order_by('-created_at').first()
+        self.assertEqual(self.bogota.base, obj_cityModel.base)
+        obj_cityModel = CityModel.objects.filter(name = 'Santiago de Cali', sys__country='CO').order_by('-created_at').first()
+        self.assertEqual(self.cali.weather, obj_cityModel.weather)
+        obj_cityModel = CityModel.objects.filter(name = 'Santiago de Cali', sys__country='CO').order_by('-created_at').first()
+        self.assertNotEqual(self.bogota.weather, obj_cityModel.weather)
+
