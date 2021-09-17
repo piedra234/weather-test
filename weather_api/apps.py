@@ -8,6 +8,6 @@ class WeatherApiConfig(AppConfig):
 
     def ready(self):
         from .management import scheduler
-        if os.environ['SCHEDULER_AUTOSTART']:
+        if os.environ['SCHEDULER_AUTOSTART']=='True':
             print('Running scheduler')
             scheduler.start()
