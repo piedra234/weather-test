@@ -8,3 +8,4 @@ __init__.py
 **/__pycache__/**
 data
 requirements_tree.txt
+weather_api/migrations/0001_initial.py

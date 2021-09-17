@@ -1,4 +1,4 @@
-from weather_api.models.city import City
+from weather_api.services.city import City
 
 class CitySerializer():
    
@@ -14,5 +14,26 @@ class CitySerializer():
                 'sunset' : f"{city.sunset}",
                 'geo_coordinates' : f"[{city.coord['lat']:.2f}, {city.coord['lon']:.2f}]",
                 'requested_time' : f"{city.requested_time}",
+        }
+        return city_serialized
+
+
+class CityFullSerializer():
+   
+    def serialize(self, city):
+        city_serialized = {
+                'coord' : city.coord,
+                'weather' : city.weather,
+                'base' : city.base,
+                'main' : city.main,
+                'visibility' : city.visibility,
+                'wind' : city.wind,
+                'clouds' : city.clouds,
+                'dt' : city.dt,
+                'sys' : city.sys,
+                'timezone' : city.timezone,
+                'id_city' : city.id,
+                'name' : city.name,
+                'cod' : city.cod,
         }
         return city_serialized
